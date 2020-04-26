@@ -4,3 +4,17 @@ export const onDropItem = ({ oldCategory, category: newCategory, task, newIndex,
     payload: { oldCategory, newCategory, task, newIndex, oldIndex }
   })
 }
+
+export const onAddAnotherCard = (task, category) => {
+  return ({
+    type: 'ADD_ANOTHER_CARD',
+    payload: { category, task }
+  })
+}
+
+export const onAddAnotherCategory = (category) => {
+  return ({
+    type: 'ADD_ANOTHER_CATEGORY',
+    payload: { category }
+  })
+}

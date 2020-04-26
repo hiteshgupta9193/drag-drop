@@ -1,6 +1,6 @@
 import React from 'react'
 import { containerStyle } from './style'
-import Droppable from 'components/Droppable'
+import Droppable from 'components/droppable'
 
 const Draggable = (props) => {
   const { text, index, onDragStart, onDropItem, data } = props

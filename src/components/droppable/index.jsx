@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Draggable from 'components/draggable'
+import AddCard from 'components/addCard'
 import {
   containerStyle,
   titleStyle
@@ -11,6 +12,7 @@ const Droppable = (props) => {
     data,
     items = [],
     onDropItem,
+    onAddAnotherCard,
     style = containerStyle,
     children,
     index
@@ -35,21 +37,36 @@ const Droppable = (props) => {
     event.preventDefault()
   }
 
+  const getContent = () => {
+    if (children) {
+      return children
+    }
+    return (
+      <Fragment>
+        {title && <div css={titleStyle}>{title}</div>}
+        {items.map((d, index) => <Draggable
+          key={d}
+          text={d}
+          onDragStart={onDragStart(id, d, index)}
+          index={index}
+          data={data}
+          onDropItem={onDropItem}
+        />)}
+        <AddCard
+          onSave={onAddAnotherCard}
+          category={id}
+          text='Add another card'
+        />
+      </Fragment>
+    )
+  }
+
   return (<div
     css={style}
     onDragOver={onDragOver(id, index)}
     onDrop={onDrop(id, index)}
   >
-    {children && children}
-    {!children && title && <div css={titleStyle}>{title}</div>}
-    {items.map((d, index) => <Draggable
-      key={d}
-      text={d}
-      onDragStart={onDragStart(id, d, index)}
-      index={index}
-      data={data}
-      onDropItem={onDropItem}
-    />)}
+    {getContent()}
   </div>)
 }
 

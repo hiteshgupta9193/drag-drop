@@ -31,7 +31,7 @@ const initialState = {
 export default function tasksReducer(state = initialState, action) {
   const { type, payload } = action
   switch (type) {
-    case 'ITEM_DROPPED':
+    case 'ITEM_DROPPED': {
       const { oldCategory, newCategory, task, newIndex, oldIndex } = payload
       if (oldCategory !== newCategory) {
         return ({
@@ -55,7 +55,34 @@ export default function tasksReducer(state = initialState, action) {
           }
         })
       }
-      return state
+    }
+    case 'ADD_ANOTHER_CARD': {
+      const { category, task } = payload
+      return ({
+        ...state,
+        list: {
+          ...state.list,
+          [category]: [...state.list[category], task]
+        }
+      })
+    }
+    case 'ADD_ANOTHER_CATEGORY': {
+      const { category } = payload
+      return ({
+        ...state,
+        list: {
+          ...state.list,
+          [category]: []
+        },
+        categories: [
+          ...state.categories,
+          {
+            id: category.split(' ').join('-'),
+            title: category
+          }
+        ]
+      })
+    }
     default:
       return state
   }
