@@ -15,6 +15,11 @@ module.exports = {
     resolve: {
         modules: [__dirname, 'src', 'node_modules'],
         extensions: ['*', '.js', '.jsx'],
+        alias: {
+          views: path.resolve(__dirname, 'src/views/'),
+          components: path.resolve(__dirname, 'src/components/'),
+          reducer: path.resolve(__dirname, 'src/reducer/')
+        }
       },
     module: {
         rules: [

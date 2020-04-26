@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.scss'
 import { container } from './appStyle'
+import Home from 'views/home'
 
 const App = () => (
   <div css={container}>
-    <h1>Hello World, React!</h1>
+    <Home />
   </div>
 )
 
