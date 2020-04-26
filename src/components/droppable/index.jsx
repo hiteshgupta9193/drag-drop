@@ -6,38 +6,48 @@ import {
 } from './style'
 
 const Droppable = (props) => {
-  const { data: { id, title } = {}, items = [], onDropItem } = props
+  const {
+    data: { id, title } = {},
+    data,
+    items = [],
+    onDropItem,
+    style = containerStyle,
+    children,
+    index
+  } = props
 
-  const onDrop = (category) => (event) => {
-    console.log('onDrop', category, event)
+  const onDrop = (category, newIndex) => (event) => {
+    event.preventDefault()
+    event.stopPropagation()
     const oldCategory = event.dataTransfer.getData('category')
     const task = event.dataTransfer.getData('task')
-    onDropItem({ oldCategory, category, task })
+    const oldIndex = event.dataTransfer.getData('index')
+    onDropItem({ oldCategory, category, task, newIndex, oldIndex })
   }
 
-  const onDragStart = (category, task) => (event) => {
-    console.log('onDragStart', category, event)
+  const onDragStart = (category, task, index) => (event) => {
     event.dataTransfer.setData('category', category)
     event.dataTransfer.setData('task', task)
+    event.dataTransfer.setData('index', index)
   }
 
-  const onDragOver = (category) => (event) => {
-    console.log('onDragOver', category, event)
+  const onDragOver = (category, index) => (event) => {
     event.preventDefault()
   }
 
   return (<div
-    css={containerStyle}
-    onDragOver={onDragOver(id)}
-    onDrop={onDrop(id)}
+    css={style}
+    onDragOver={onDragOver(id, index)}
+    onDrop={onDrop(id, index)}
   >
-    {title && <div css={titleStyle}>{title}</div>}
+    {children && children}
+    {!children && title && <div css={titleStyle}>{title}</div>}
     {items.map((d, index) => <Draggable
       key={d}
-      data={d}
-      onDragStart={onDragStart(id, d)}
+      text={d}
+      onDragStart={onDragStart(id, d, index)}
       index={index}
-      category={id}
+      data={data}
       onDropItem={onDropItem}
     />)}
   </div>)
