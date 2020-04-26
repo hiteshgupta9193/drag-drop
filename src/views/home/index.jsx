@@ -2,7 +2,7 @@ import  React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from "react-redux";
 import { containerStyle } from './style'
-import Droppable from 'components/droppable'
+import Droppable from 'components/Droppable'
 import * as actions from './actions'
 
 const Home = (props) => {

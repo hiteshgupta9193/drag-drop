@@ -32,7 +32,7 @@ export default function tasksReducer(state = initialState, action) {
   const { type, payload } = action
   switch (type) {
     case 'ITEM_DROPPED':
-      const { oldCategory, newCategory, task } = payload
+      const { oldCategory, newCategory, task, newIndex, oldIndex } = payload
       if (oldCategory !== newCategory) {
         return ({
           ...state,
@@ -40,6 +40,18 @@ export default function tasksReducer(state = initialState, action) {
             ...state.list,
             [oldCategory]: state.list[oldCategory].filter(t => t !== task),
             [newCategory]: [...state.list[newCategory], task]
+          }
+        })
+      } else if (oldIndex !== undefined && newIndex !== undefined) {
+        let { list: { [newCategory]: categoryList } } = state
+        const temp = categoryList[oldIndex]
+        categoryList[oldIndex] = categoryList[newIndex]
+        categoryList[newIndex] = temp
+        return ({
+          ...state,
+          list: {
+            ...state.list,
+            [newCategory]: categoryList
           }
         })
       }

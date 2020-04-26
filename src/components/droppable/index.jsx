@@ -9,18 +9,20 @@ const Droppable = (props) => {
   const { data: { id, title } = {}, items = [], onDropItem } = props
 
   const onDrop = (category) => (event) => {
+    console.log('onDrop', category, event)
     const oldCategory = event.dataTransfer.getData('category')
     const task = event.dataTransfer.getData('task')
-    onDropItem(oldCategory, category, task)
+    onDropItem({ oldCategory, category, task })
   }
 
   const onDragStart = (category, task) => (event) => {
+    console.log('onDragStart', category, event)
     event.dataTransfer.setData('category', category)
     event.dataTransfer.setData('task', task)
   }
 
   const onDragOver = (category) => (event) => {
-    console.log(category, event.movementY)
+    console.log('onDragOver', category, event)
     event.preventDefault()
   }
 
@@ -29,11 +31,14 @@ const Droppable = (props) => {
     onDragOver={onDragOver(id)}
     onDrop={onDrop(id)}
   >
-    <div css={titleStyle}>{title}</div>
-    {items.map(d => <Draggable
+    {title && <div css={titleStyle}>{title}</div>}
+    {items.map((d, index) => <Draggable
       key={d}
       data={d}
       onDragStart={onDragStart(id, d)}
+      index={index}
+      category={id}
+      onDropItem={onDropItem}
     />)}
   </div>)
 }
