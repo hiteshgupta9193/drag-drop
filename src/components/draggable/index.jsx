@@ -1,5 +1,5 @@
 import React from 'react'
-import { containerStyle } from 'components/Draggable/style'
+import { containerStyle, contentStyle } from 'components/Draggable/style'
 import Dropable from 'components/Dropable'
 
 const Draggable = (props) => {
@@ -13,6 +13,7 @@ const Draggable = (props) => {
       data={data}
     >
       <div
+        css={contentStyle}
         onDragStart={onDragStart}
         draggable
       >

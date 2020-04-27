@@ -3,7 +3,8 @@ import Draggable from 'components/Draggable'
 import AddCard from 'components/AddCard'
 import {
   containerStyle,
-  titleStyle
+  titleStyle,
+  addCardStyle
 } from 'components/Dropable/style'
 
 const Dropable = (props) => {
@@ -53,6 +54,7 @@ const Dropable = (props) => {
           onDropItem={onDropItem}
         />)}
         <AddCard
+          style={addCardStyle}
           onSave={onAddAnotherCard}
           category={id}
           text='Add another card'
