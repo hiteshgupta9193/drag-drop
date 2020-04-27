@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --open",
+    "start": "yarn && webpack-dev-server --hot --open",
     "build": "webpack --config webpack.config.js --mode production"
   },
   "author": "Hitesh Gupta",
