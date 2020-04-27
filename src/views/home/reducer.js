@@ -55,6 +55,7 @@ export default function tasksReducer(state = initialState, action) {
           }
         })
       }
+      return state
     }
     case 'ADD_ANOTHER_CARD': {
       const { category, task } = payload
