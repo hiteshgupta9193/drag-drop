@@ -1,24 +1,24 @@
 import React from 'react'
-import { containerStyle } from './style'
-import Droppable from 'components/droppable'
+import { containerStyle } from 'components/Draggable/style'
+import Dropable from 'components/Dropable'
 
 const Draggable = (props) => {
   const { text, index, onDragStart, onDropItem, data } = props
 
   return (
-    <Droppable
+    <Dropable
       style={containerStyle}
       index={index}
       onDropItem={onDropItem}
       data={data}
     >
       <div
-        onDragStart = {onDragStart}
+        onDragStart={onDragStart}
         draggable
       >
         {text}
       </div>
-    </Droppable>
+    </Dropable>
   )
 }
 

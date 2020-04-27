@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react'
 import {
   addCardStyle,
   plusStyle
-} from './style'
+} from 'components/AddCard/style'
 
 const AddCard = (props) => {
   const { text, onSave, category } = props

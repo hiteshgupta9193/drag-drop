@@ -6,10 +6,10 @@ import {
   titleStyle,
   modalBodyContainerStyle,
   actionsContainerStyle,
-saveBtnStyle,
-deleteBtnStyle,
-cancelBtnStyle,
-} from './style'
+  saveBtnStyle,
+  deleteBtnStyle,
+  cancelBtnStyle,
+} from 'components/Modal/style'
 
 const Modal = (props) => {
   const {

@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react'
-import Draggable from 'components/draggable'
-import AddCard from 'components/addCard'
+import React, { Fragment, useCallback } from 'react'
+import Draggable from 'components/Draggable'
+import AddCard from 'components/AddCard'
 import {
   containerStyle,
   titleStyle
-} from './style'
+} from 'components/Dropable/style'
 
-const Droppable = (props) => {
+const Dropable = (props) => {
   const {
     data: { id, title } = {},
     data,
@@ -18,24 +18,24 @@ const Droppable = (props) => {
     index
   } = props
 
-  const onDrop = (category, newIndex) => (event) => {
+  const onDrop = useCallback((category, newIndex) => (event) => {
     event.preventDefault()
     event.stopPropagation()
     const oldCategory = event.dataTransfer.getData('category')
     const task = event.dataTransfer.getData('task')
     const oldIndex = event.dataTransfer.getData('index')
     onDropItem({ oldCategory, category, task, newIndex, oldIndex })
-  }
+  }, [])
 
-  const onDragStart = (category, task, index) => (event) => {
+  const onDragStart = useCallback((category, task, index) => (event) => {
     event.dataTransfer.setData('category', category)
     event.dataTransfer.setData('task', task)
     event.dataTransfer.setData('index', index)
-  }
+  }, [])
 
-  const onDragOver = (category, index) => (event) => {
+  const onDragOver = useCallback((category, index) => (event) => {
     event.preventDefault()
-  }
+  }, [])
 
   const getContent = () => {
     if (children) {
@@ -70,4 +70,4 @@ const Droppable = (props) => {
   </div>)
 }
 
-export default Droppable
+export default Dropable

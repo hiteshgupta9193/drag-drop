@@ -1,42 +1,41 @@
-import  React from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from "react-redux";
-import { containerStyle } from './style'
-import Droppable from 'components/droppable'
-import * as actions from './actions'
-// import Modal from 'components/modal'
-import AddCard from 'components/addCard'
+import React, { useCallback } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import Dropable from 'components/Dropable'
+import AddCard from 'components/AddCard'
+import { containerStyle } from 'views/Home/style'
+import { onAddAnotherCategory, onDropItem, onAddAnotherCard } from './actions'
 
-const Home = (props) => {
-  const {
-    tasks: { categories, list } = {},
-    actions: {
-      onDropItem,
-      onAddAnotherCard,
-      onAddAnotherCategory
-    } = {} } = props
-  return (<div css={containerStyle}>
-    {categories.map(cat => <Droppable
-    key={cat.id}
-    data={cat}
-    items={list[cat.id]}
-    onDropItem={onDropItem}
-    onAddAnotherCard={onAddAnotherCard}
-  />)}
-  <AddCard
-    onSave={onAddAnotherCategory}
-    text='Add another list'
-  />
-  {/* <Modal /> */}
-  </div>)
+export default function Home() {
+  const { categories, list } = useSelector(({ tasks: { categories, list } = {} }) => ({ categories, list }))
+  const dispatch = useDispatch()
+
+  const handleOnDropItem = useCallback((param) => {
+    dispatch(onDropItem(param))
+  }, [onDropItem])
+
+  const handleOnAddAnotherCard = useCallback((task, category) => {
+    dispatch(onAddAnotherCard(task, category))
+  }, [onAddAnotherCard])
+
+  const handleOnAddAnotherCategory = useCallback((category) => {
+    dispatch(onAddAnotherCategory(category))
+  }, [onAddAnotherCategory])
+
+  return (
+    <div css={containerStyle}>
+      {categories.map(cat => (
+        <Dropable
+          key={cat.id}
+          data={cat}
+          items={list[cat.id]}
+          onDropItem={handleOnDropItem}
+          onAddAnotherCard={handleOnAddAnotherCard}
+        />
+      ))}
+      <AddCard
+        onSave={handleOnAddAnotherCategory}
+        text='Add another list'
+      />
+    </div>
+  )
 }
-
-const mapStateToProps = state => {
-  return { tasks: state.tasks };
-};
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
