@@ -1,47 +1,25 @@
 import React, { useState, useCallback } from 'react'
+import EditBox from 'components/EditBox'
 import {
-  plusStyle,
-  editContainerStyle,
-  inputStyle,
-  saveBtnStyle
+  plusStyle
 } from 'components/AddCard/style'
 
 const AddCard = (props) => {
   const { text, onSave, category, style } = props
   const [isEditing, setEditing] = useState(false)
-  const [textVal, setTextVal] = useState('')
   const setNewCard = useCallback(() => {
     setEditing(true)
   })
-  const onSaveClick = useCallback(() => {
-    if (!textVal) {
-      return
-    }
+  const onSaveClick = useCallback((textVal) => {
     onSave(textVal, category)
     setEditing(false)
-    setTextVal('')
-  })
-  const onTextChange = useCallback((event) => {
-    setTextVal(event.target.value)
-  })
-  const onKeyPress = useCallback((event) => {
-    if (event.key === 'Enter') {
-      onSaveClick()
-    }
-  })
+  }, [onSave, setEditing])
   return(
     <div css={style}>
       {isEditing
-        ? <div css={editContainerStyle}>
-            <input
-              css={inputStyle}
-              type='text'
-              onChange={onTextChange}
-              onKeyPress={onKeyPress}
-              value={textVal}
-            />
-            <div css={saveBtnStyle} onClick={onSaveClick}>Save</div>
-          </div>
+        ? <EditBox
+            onSave={onSaveClick}
+          />
         : <div onClick={setNewCard}>
             <span css={plusStyle}>+</span>{text}
           </div>

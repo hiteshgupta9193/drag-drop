@@ -14,6 +14,7 @@ const Dropable = (props) => {
     items = [],
     onDropItem,
     onAddAnotherCard,
+    onCardEditSave,
     style = containerStyle,
     children,
     index
@@ -26,7 +27,7 @@ const Dropable = (props) => {
     const task = event.dataTransfer.getData('task')
     const oldIndex = event.dataTransfer.getData('index')
     onDropItem({ oldCategory, category, task, newIndex, oldIndex })
-  }, [])
+  }, [onDropItem])
 
   const onDragStart = useCallback((category, task, index) => (event) => {
     event.dataTransfer.setData('category', category)
@@ -52,6 +53,7 @@ const Dropable = (props) => {
           index={index}
           data={data}
           onDropItem={onDropItem}
+          onCardEditSave={onCardEditSave}
         />)}
         <AddCard
           style={addCardStyle}

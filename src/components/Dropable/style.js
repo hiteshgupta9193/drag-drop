@@ -1,7 +1,7 @@
 import { css } from '@emotion/core'
 
 export const containerStyle = css`
-  width: 225px;
+  width: 275px;
   margin: 0 4px;
   box-sizing: border-box;
   display: inline-block;
@@ -26,7 +26,7 @@ export const addCardStyle = css`
   cursor: pointer;
   margin: 0 auto;
   margin-bottom: 8px;
-  width: 210px;
+  width: 262px;
   min-height: 30px;
   box-sizing: border-box;
   &:hover {

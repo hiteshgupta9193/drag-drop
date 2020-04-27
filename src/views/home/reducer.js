@@ -19,7 +19,7 @@ const initialState = {
     title: 'Done'
   }],
   list: {
-    design: ['Task1', 'Task2'],
+    design: ['Task1 Task1 Task1 Task1 Task1 Task1 Task1 Task1 Task1 Task1 Task1 Task1 Task1 ', 'Task2'],
     todo: ['Task3', 'Task4', 'Task5'],
     development: ['Task6', 'Task7'],
     qa: ['Task8', 'Task9', 'Task10'],
@@ -81,6 +81,23 @@ export default function tasksReducer(state = initialState, action) {
             title: category
           }
         ]
+      })
+    }
+    case 'CARD_EDITTED': {
+      const { category, oldValue, newValue } = payload
+      let { list: { [category]: categoryList } } = state
+      categoryList = categoryList.map(item => {
+        if (item === oldValue) {
+          return newValue
+        }
+        return item
+      })
+      return ({
+        ...state,
+        list: {
+          ...state.list,
+          [category]: categoryList
+        }
       })
     }
     default:

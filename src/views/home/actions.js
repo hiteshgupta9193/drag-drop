@@ -18,3 +18,10 @@ export const onAddAnotherCategory = (category) => {
     payload: { category }
   })
 }
+
+export const onCardEditSave = (category, oldValue, newValue) => {
+  return ({
+    type: 'CARD_EDITTED',
+    payload: { category, oldValue, newValue }
+  })
+}

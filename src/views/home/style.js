@@ -15,7 +15,7 @@ export const containerStyle = css`
 `
 
 export const addCategoryStyle = css`
-  width: 225px;
+  width: 275px;
   margin: 0 4px;
   display: inline-block;
   vertical-align: top;
